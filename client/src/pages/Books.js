@@ -23,7 +23,7 @@ function Books() {
   // Load all books and store them with setBooks
   useEffect(() => {
     loadBooks();
-  }, []);
+  }, [List]);
 
   // Loads all books and sets them to books
   function loadBooks() {
@@ -38,8 +38,8 @@ function Books() {
   function saveBook(book) {
     setBookData( { id: book.id,
       title: book.volumeInfo.title,
-      authors: book.volumeInfo.authors[0],
-      description: book.volumeInfo.description,
+      author: book.volumeInfo.authors[0],
+      desc: book.volumeInfo.description,
       img: book.volumeInfo.imageLinks.smallThumbnail,
       link: book.volumeInfo.previewLink });
     console.log(bookData)
