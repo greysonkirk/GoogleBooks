@@ -22,12 +22,12 @@ function Books() {
        })
   // Load all books and store them with setBooks
   useEffect(() => {
-    loadBooks();
-  }, [List]);
+    loadBooks("random");
+  }, []);
 
   // Loads all books and sets them to books
-  function loadBooks() {
-    API.getBooks(searchTerm)
+  function loadBooks(search) {
+    API.getBooks(search)
       .then((res) => setBooks(res.data.items))
       .catch((err) => console.log(err));
     console.log(books);
@@ -36,25 +36,27 @@ function Books() {
 
   // Deletes a book from the database with a given id, then reloads books from the db
   function saveBook(book) {
-    setBookData( { id: book.id,
+    const bookD =  { id: book.id,
       title: book.volumeInfo.title,
       author: book.volumeInfo.authors[0],
       desc: book.volumeInfo.description,
       img: book.volumeInfo.imageLinks.smallThumbnail,
-      link: book.volumeInfo.previewLink });
-    console.log(bookData)
-    API.saveBook(bookData)
+      link: book.volumeInfo.previewLink };
+    console.log(bookD)
+    API.saveBook(bookD)
   }
 
   // Handles updating component state when the user types into the input field
 
-  function handleSearchSubmit(event) {
+  const  handleSearchSubmit = (event) => {
+
     event.preventDefault();
-    setsearchTerm(event.target.search.value);
+    const term = event.target.search.value
+    setsearchTerm(term);
     console.log(searchTerm);
-    loadBooks();
+    loadBooks(term);
     setheadIntro("Showing Results for " + `"`+
-     searchTerm + `"`);
+     term + `"`);
       console.log(searchTerm)
   };
 
